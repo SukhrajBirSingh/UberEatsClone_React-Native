@@ -5,6 +5,7 @@ import OrderItem from "./OrderItem";
 import firebase from "../../firebase";
 import "firebase/firestore";
 import LottieView from "lottie-react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function ViewCartButton({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -54,12 +55,16 @@ export default function ViewCartButton({ navigation }) {
         <View style={styles.modalContainer}>
           <View style={styles.modalCheckoutContainer}>
             <Text style={styles.restaurantName}>{restaurantName}</Text>
-            {items.map((item, index) => (
-              <OrderItem key={index} item={item} />
-            ))}
-            <View style={styles.subtotalContainer}>
-              <Text style={styles.subtotalText}>Subtotal</Text>
-              <Text>{totalUSD}</Text>
+            <View style={{ height: 260, marginTop: 10 }}>
+              <ScrollView>
+                {items.map((item, index) => (
+                  <OrderItem key={index} item={item} />
+                ))}
+                <View style={styles.subtotalContainer}>
+                  <Text style={styles.subtotalText}>Subtotal</Text>
+                  <Text style={styles.subtotalText}>{totalUSD}</Text>
+                </View>
+              </ScrollView>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
               <TouchableOpacity
@@ -80,6 +85,14 @@ export default function ViewCartButton({ navigation }) {
                 <Text style={{ color: "white", fontSize: 20 }}>Checkout</Text>
               </TouchableOpacity>
             </View>
+            <TouchableOpacity
+              style={{ alignItems: "center", marginTop: 20 }}
+              onPress={() => {
+                setModalVisible(false);
+              }}
+            >
+              <Text style={{ fontSize: 20, fontWeight: "600" }}>Cancel</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </>
