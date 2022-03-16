@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
 import firebase from "../../firebase";
 import "firebase/firestore";
+import LottieView from "lottie-react-native";
 
 export default function ViewCartButton({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
@@ -27,14 +29,22 @@ export default function ViewCartButton({ navigation }) {
   });
 
   const addToFirebase = () => {
+    setLoading(true);
     const db = firebase.firestore();
-    db.collection("orders").add({
-      items: items,
-      restaurantName: restaurantName,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    setModalVisible(false);
-    navigation.navigate("OrderCompleted");
+    db.collection("orders")
+      .add({
+        items: items,
+        restaurantName: restaurantName,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        /// Adding the timer@@@@@@@@@@@@@@@@
+        setTimeout(() => {
+          setLoading(false);
+
+          navigation.navigate("OrderCompleted");
+        }, 2500);
+      });
   };
 
   const checkoutModalContext = () => {
@@ -64,6 +74,7 @@ export default function ViewCartButton({ navigation }) {
                 }}
                 onPress={() => {
                   addToFirebase();
+                  setModalVisible(false);
                 }}
               >
                 <Text style={{ color: "white", fontSize: 20 }}>Checkout</Text>
@@ -93,7 +104,7 @@ export default function ViewCartButton({ navigation }) {
             justifyContent: "center",
             flexDirection: "row",
             position: "absolute",
-            bottom: 360, // adjust the position on button on Screen
+            bottom: 50, // adjust the position on button on Screen
             zIndex: 999,
             //backgroundColor: "green",
           }}
@@ -125,6 +136,28 @@ export default function ViewCartButton({ navigation }) {
               <Text style={{ color: "white", fontSize: 20 }}>{totalUSD}</Text>
             </TouchableOpacity>
           </View>
+        </View>
+      ) : (
+        <></>
+      )}
+      {loading ? (
+        <View
+          style={{
+            backgroundColor: "black",
+            position: "absolute",
+            opacity: 0.6,
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            width: "100%",
+          }}
+        >
+          <LottieView
+            style={{ height: 200 }}
+            source={require("../../assets/animations/scanner.json")}
+            autoPlay
+            speed={3}
+          />
         </View>
       ) : (
         <></>

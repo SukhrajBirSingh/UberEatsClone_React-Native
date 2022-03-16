@@ -11,45 +11,12 @@ import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch, useSelector } from "react-redux";
 
-const foods = [
-  {
-    title: "Lasagna",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
-  },
-  {
-    title: "Tandoori chicken",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
-  },
-  {
-    title: "Paneer Masala",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
-  },
-  {
-    title: "Shahi Paneer",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
-  },
-  {
-    title: "Malai Kofta",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
-  },
-];
-
-export default function MenuItem({ restaurantName }) {
+export default function MenuItem({
+  restaurantName,
+  foods,
+  hideCheckbox,
+  marginLeft,
+}) {
   const dispatch = useDispatch();
   const selectedItem = (item, checkboxValue) =>
     dispatch({
@@ -72,19 +39,23 @@ export default function MenuItem({ restaurantName }) {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 600 }}
+      contentContainerStyle={{ paddingBottom: 100 }}
     >
       {foods.map((food, index) => (
         <View key={index}>
           <View style={styles.menuItemStyle}>
-            <BouncyCheckbox
-              iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
-              fillColor="green"
-              isChecked={isFoodinCart(food, cartItems)}
-              onPress={(checkboxValue) => selectedItem(food, checkboxValue)}
-            />
+            {hideCheckbox ? ( //if check to hide checkbox@@@@@@@@@@@@
+              <></>
+            ) : (
+              <BouncyCheckbox
+                iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
+                fillColor="green"
+                isChecked={isFoodinCart(food, cartItems)}
+                onPress={(checkboxValue) => selectedItem(food, checkboxValue)}
+              />
+            )}
             <FoodInfo food={food} />
-            <FoodImage food={food} />
+            <FoodImage food={food} marginLeft={marginLeft ? marginLeft : 0} />
           </View>
           <Divider width={0.5} style={{ marginHorizontal: 20 }} />
         </View>
@@ -101,10 +72,15 @@ const FoodInfo = (props) => (
   </View>
 );
 
-const FoodImage = (props) => (
+const FoodImage = ({ marginLeft, ...props }) => (
   <View>
     <Image
-      style={{ width: 100, height: 100, borderRadius: 8 }}
+      style={{
+        width: 100,
+        height: 100,
+        borderRadius: 8,
+        marginLeft: marginLeft,
+      }}
       source={{ uri: props.food.image }}
     />
   </View>
