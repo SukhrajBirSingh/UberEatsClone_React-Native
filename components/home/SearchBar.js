@@ -3,12 +3,12 @@ import React from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
-
+import env from "../../env";
 export default function SearchBar(props) {
   return (
     <View style={{ marginTop: 15, flexDirection: "row" }}>
       <GooglePlacesAutocomplete
-        query={{ key: "AIzaSyBh1iJ9pPpQyrup5Z1x0WplgDXp_EFGWhc" }}
+        query={{ key: env.googleApiKey }}
         onPress={(data, details = null) => {
           const city = data.description.split(",")[0];
           props.cityHandler(city);
