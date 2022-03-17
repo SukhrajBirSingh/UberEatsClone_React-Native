@@ -1,4 +1,19 @@
-# My Universal React Project
+## Uber Clone [Eats and Ride]
+
+## General Info
+This project is a clone of Uber app. It has both uberEats and uberRide options.
+
+## Technologies and Libraries
+Project is created with:
+* react-native: "^44.0.0"
+* expo: "^44.0.0"
+* firebase: "7.9.0"
+* lottie-react-native: "^5.0.1"
+* react-native-keyboard-spacer: "^0.4.1"
+* react-native-vector-icons: "^9.1.0"
+* react-native-bouncy-checkbox: "^2.1.10",
+* react-native-google-places-autocomplete: "^2.4.1"
+* react-native-reanimated: "~2.3.1"
 
 <p>
   <!-- iOS -->
