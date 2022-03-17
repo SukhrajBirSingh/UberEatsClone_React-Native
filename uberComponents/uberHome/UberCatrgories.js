@@ -29,7 +29,7 @@ export default function UberCatrgories({ navigation }) {
         <TouchableOpacity
           onPress={() => {
             if (item.id === 1) {
-              console.log("going for a ride");
+              navigation.navigate("UberDestination");
             } else {
               navigation.navigate("Home");
             }

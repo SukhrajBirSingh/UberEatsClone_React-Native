@@ -1,15 +1,43 @@
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
 import { Divider } from "react-native-elements";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function Greeting() {
+export default function Greeting({ navigation }) {
   return (
     <>
-      <View
-        style={{ justifyContent: "center", alignItems: "center", padding: 20 }}
+      <SafeAreaView
+        style={{
+          justifyContent: "flex-start",
+          alignItems: "center",
+          padding: 20,
+          marginBottom: 10,
+          flexDirection: "row",
+          marginLeft: 10,
+        }}
       >
-        <Text style={{ fontSize: 20, fontWeight: "500" }}>Good Morning!</Text>
-      </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <MaterialCommunityIcons
+            name="arrow-left"
+            size={35}
+            style={{ marginRight: 0 }}
+          />
+        </TouchableOpacity>
+
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "500",
+            marginLeft: 70,
+          }}
+        >
+          Good Morning!
+        </Text>
+      </SafeAreaView>
       <Divider width={1} />
     </>
   );

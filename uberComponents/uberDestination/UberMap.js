@@ -6,7 +6,7 @@ export default function UberMap() {
     <View
       style={{
         flex: 1 / 2,
-        //height: "40%",
+        //height: "50%",
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "orange",

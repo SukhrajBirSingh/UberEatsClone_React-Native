@@ -6,5 +6,5 @@ import UberDestination from "./uberScreen/UberDestination";
 import UberHome from "./uberScreen/UberHome";
 
 export default function App() {
-  return <UberDestination />;
+  return <RootNavigation />;
 }
