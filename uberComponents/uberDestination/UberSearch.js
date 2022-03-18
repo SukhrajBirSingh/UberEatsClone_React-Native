@@ -1,20 +1,23 @@
 import { View, Text, KeyboardAvoidingView, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import env from "../../env";
-import KeyboardSpacer from "react-native-keyboard-spacer";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function UberSearch(props) {
+  const [currentLocation, setCurrentLocation] = useState({});
+
   return (
     <>
       <View style={{ marginTop: 15, flexDirection: "row" }}>
         <GooglePlacesAutocomplete
           query={{ key: env.googleApiKey }}
+          fetchDetails={true}
           onPress={(data, details = null) => {
-            const Currentcity = data.description.split(",")[0];
-            //console.log(city);
-            props.currentCityHandler(Currentcity);
+            const Currentcity = details.geometry.location;
+            //console.log(data);
+            // console.log(details.geometry.location);
+            setCurrentLocation(Currentcity);
           }}
           placeholder="Current Location"
           styles={{
@@ -53,10 +56,18 @@ export default function UberSearch(props) {
       <View style={{ marginTop: 15, flexDirection: "row" }}>
         <GooglePlacesAutocomplete
           query={{ key: env.googleApiKey }}
+          fetchDetails={true}
           onPress={(data, details = null) => {
-            const Destinationcity = data.description.split(",")[0];
-            //console.log(city);
-            props.destinationHandler(Destinationcity);
+            const destination = details.geometry.location;
+            {
+              currentLocation.lat
+                ? props.navigation.navigate("UberMap", {
+                    currentLocation,
+                    destination,
+                  })
+                : "";
+            }
+            setCurrentLocation({});
           }}
           placeholder="Where to?"
           styles={{
