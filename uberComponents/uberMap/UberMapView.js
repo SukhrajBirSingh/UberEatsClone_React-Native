@@ -3,18 +3,24 @@ import React, { useEffect, useRef } from "react";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import env from "../../env";
+import { useSelector } from "react-redux";
 
 export default function UberMapView(props) {
-  const { currentLocation, destination } = props.route.params;
+  // const { currentLocation, destination } = props.route.params;
+  const origin = useSelector((state) => state.rideReducer.origin);
+  const destination = useSelector((state) => state.rideReducer.destination);
+
+  console.log(origin.origin.lat);
+  //console.log(`destination#${destination.lng}`);
 
   const directions = [
     {
-      latitude: currentLocation.lat,
-      longitude: currentLocation.lng,
+      latitude: origin.origin.lat,
+      longitude: origin.origin.lng,
     },
     {
-      latitude: destination.lat,
-      longitude: destination.lng,
+      latitude: destination.destination.lat,
+      longitude: destination.destination.lng,
     },
   ];
 

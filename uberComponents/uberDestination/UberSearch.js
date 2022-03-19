@@ -3,9 +3,34 @@ import React, { useState } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import env from "../../env";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function UberSearch(props) {
   const [currentLocation, setCurrentLocation] = useState({});
+  const origin = useSelector((state) => state.rideReducer.origin);
+  // const destination = useSelector((state) => state.rideReducer.destination);
+
+  // console.log("origin===", origin);
+  //console.log(`destination====${destination.lng}`);
+
+  const dispatch = useDispatch();
+  //console.log(`origin=${origin.lat}`);
+
+  const selectedOrigin = (origin) => {
+    dispatch({
+      type: "SET_ORIGIN",
+      payload: { origin },
+    });
+    //console.log(`origin=${origin.lat}`);
+  };
+
+  const selectedDestination = (destination) => {
+    dispatch({
+      type: "SET_DESTINATION",
+      payload: { destination },
+    });
+    // console.log(`destination=${destination.lat}`);
+  };
 
   return (
     <>
@@ -17,7 +42,7 @@ export default function UberSearch(props) {
             const Currentcity = details.geometry.location;
             //console.log(data);
             // console.log(details.geometry.location);
-            setCurrentLocation(Currentcity);
+            selectedOrigin(Currentcity);
           }}
           placeholder="Current Location"
           styles={{
@@ -60,14 +85,9 @@ export default function UberSearch(props) {
           onPress={(data, details = null) => {
             const destination = details.geometry.location;
             {
-              currentLocation.lat
-                ? props.navigation.navigate("UberMap", {
-                    currentLocation,
-                    destination,
-                  })
-                : "";
+              selectedDestination(destination);
+              props.navigation.navigate("UberMap");
             }
-            setCurrentLocation({});
           }}
           placeholder="Where to?"
           styles={{
