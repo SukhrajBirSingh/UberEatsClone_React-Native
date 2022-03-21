@@ -1,7 +1,8 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Divider } from "react-native-elements/dist/divider/Divider";
+import { useDispatch, useSelector } from "react-redux";
 
 const data = [
   {
@@ -24,7 +25,10 @@ const data = [
   },
 ];
 
-export default function RideOptions() {
+const SURGE_CHARGE_RATE = 1.5;
+
+export default function RideOptions(props) {
+  const travelInfo = useSelector((state) => state.rideReducer.travelInfo);
   const [selected, setSelected] = useState({});
 
   return (
@@ -39,7 +43,13 @@ export default function RideOptions() {
           marginBottom: 10,
         }}
       >
-        <Ionicons name="chevron-back" size={25} />
+        <Ionicons
+          name="chevron-back"
+          size={25}
+          onPress={() => {
+            props.navigation.goBack();
+          }}
+        />
 
         <Text
           style={{
@@ -49,7 +59,7 @@ export default function RideOptions() {
             marginRight: "auto",
           }}
         >
-          Select a ride
+          Select a ride • {travelInfo.info.distance.text}
         </Text>
       </View>
       <ScrollView>
@@ -72,7 +82,10 @@ export default function RideOptions() {
               }}
             >
               <RideImage image={item.image} />
-              <RideInfo title={item.title} />
+              <RideInfo
+                title={item.title}
+                duration={travelInfo.info.duration.text}
+              />
 
               <Text
                 style={{
@@ -82,7 +95,15 @@ export default function RideOptions() {
                   fontWeight: "600",
                 }}
               >
-                $20
+                {new Intl.NumberFormat("en-ca", {
+                  style: "currency",
+                  currency: "CAD",
+                }).format(
+                  (travelInfo.info.duration.value *
+                    SURGE_CHARGE_RATE *
+                    item.multiplier) /
+                    100
+                )}
               </Text>
             </View>
           </TouchableOpacity>
@@ -105,7 +126,7 @@ const RideImage = (props) => (
 const RideInfo = (props) => (
   <View>
     <Text style={{ fontWeight: "600" }}>{props.title}</Text>
-    <Text>15-20 drop-off</Text>
+    <Text>{props.duration} Travel Time</Text>
   </View>
 );
 

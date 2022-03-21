@@ -1,31 +1,31 @@
 let defaultState = {
   origin: {},
-  //destination: {},
-  //travelTimeInfo: {},
+  destination: {},
+  travelInfo: {},
 };
 
 let rideReducer = (state = defaultState, action) => {
   switch (action.type) {
     case "SET_ORIGIN": {
-      //let newState = { ...state };
+      let newState = { ...state };
 
-      state.origin = action.payload;
-      return state;
+      newState.origin = action.payload;
+      return newState;
     }
 
     case "SET_DESTINATION": {
-      // let newState = { ...state };
+      let newState = { ...state };
 
-      state.destination = action.payload;
-      return state;
+      newState.destination = action.payload;
+      return newState;
     }
 
-    // case "SET_TRAVEL_TIME_INFO": {
-    //   //let newState = { ...state };
+    case "SET_TRAVEL_INFO": {
+      let newState = { ...state };
 
-    //   state.travelTimeInfo = action.payload;
-    //   return state;
-    // }
+      newState.travelInfo = action.payload;
+      return newState;
+    }
     default: {
       return state;
     }

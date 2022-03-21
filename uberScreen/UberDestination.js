@@ -7,15 +7,8 @@ import KeyboardSpacer from "react-native-keyboard-spacer";
 import BottomButtons from "../uberComponents/uberDestination/BottomButtons";
 
 export default function UberDestination({ navigation }) {
-  // const [currentLocation, setCurrentLocation] = useState("");
-  // const [destination, setDestination] = useState("");
-
   return (
     <>
-      {/* {console.log(`current = ${currentLocation}`)}
-      {console.log(currentLocation.lat)}
-      {console.log(`destination = ${destination}`)}
-      {console.log(destination.lat)} */}
       <View style={{ overflow: "hidden", paddingBottom: 20 }}>
         <View
           style={{
@@ -33,7 +26,6 @@ export default function UberDestination({ navigation }) {
         </View>
       </View>
       <RecentLocations />
-      <BottomButtons />
       <KeyboardSpacer />
     </>
   );

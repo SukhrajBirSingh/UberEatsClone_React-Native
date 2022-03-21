@@ -1,7 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { NavigationHelpersContext } from "@react-navigation/native";
 
 const data = [
   {

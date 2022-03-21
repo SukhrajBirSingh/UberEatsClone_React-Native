@@ -3,16 +3,13 @@ import React, { useEffect, useRef } from "react";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import env from "../../env";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function UberMapView(props) {
-  // const { currentLocation, destination } = props.route.params;
   const origin = useSelector((state) => state.rideReducer.origin);
   const destination = useSelector((state) => state.rideReducer.destination);
 
   console.log(origin.origin.lat);
-  //console.log(`destination#${destination.lng}`);
-
   const directions = [
     {
       latitude: origin.origin.lat,
@@ -27,12 +24,28 @@ export default function UberMapView(props) {
   const mapRef = useRef(null);
 
   useEffect(() => {
-    // please use if check
+    if (!directions[0] || !directions[1]) return;
     //zoom out
     mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
       edgePadding: { top: 50, right: 50, left: 50, bottom: 50 },
     });
   }, [directions[0], directions[1]]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch(
+      `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&destinations=${destination.destination.lat}%2C${destination.destination.lng}&origins=${origin.origin.lat}%2C${origin.origin.lng}&key=${env.googleMatrixAPI}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const info = data.rows[0].elements[0];
+        dispatch({
+          type: "SET_TRAVEL_INFO",
+          payload: { info },
+        });
+      });
+  });
 
   return (
     <View style={{ height: "50%", width: "100%", backgroundColor: "orange" }}>

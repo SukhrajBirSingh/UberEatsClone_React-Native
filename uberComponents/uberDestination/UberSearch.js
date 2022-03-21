@@ -6,12 +6,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { useDispatch, useSelector } from "react-redux";
 
 export default function UberSearch(props) {
-  const [currentLocation, setCurrentLocation] = useState({});
   const origin = useSelector((state) => state.rideReducer.origin);
-  // const destination = useSelector((state) => state.rideReducer.destination);
+  const destination = useSelector((state) => state.rideReducer.destination);
 
-  // console.log("origin===", origin);
-  //console.log(`destination====${destination.lng}`);
+  console.log("origin===", origin.origin);
+  console.log("destination====", destination.destination);
 
   const dispatch = useDispatch();
   //console.log(`origin=${origin.lat}`);
@@ -37,11 +36,14 @@ export default function UberSearch(props) {
       <View style={{ marginTop: 15, flexDirection: "row" }}>
         <GooglePlacesAutocomplete
           query={{ key: env.googleApiKey }}
+          //currentLocation={true}
+          //currentLocationLabel="Current Location"
+          //predefinedPlaces={[homePlace]}
           fetchDetails={true}
           onPress={(data, details = null) => {
             const Currentcity = details.geometry.location;
             //console.log(data);
-            // console.log(details.geometry.location);
+            //console.log(details.geometry.location);
             selectedOrigin(Currentcity);
           }}
           placeholder="Current Location"
@@ -86,6 +88,7 @@ export default function UberSearch(props) {
             const destination = details.geometry.location;
             {
               selectedDestination(destination);
+
               props.navigation.navigate("UberMap");
             }
           }}

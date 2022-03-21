@@ -7,39 +7,41 @@ import ViewCartButton from "../components/about/ViewCartButton";
 
 const foods = [
   {
-    title: "Lasagna",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
+    title: "Chiken Wings",
+    description:
+      "Crispy organic whole wings, fish sauce, tamarind pineapple glazed sauce",
+    price: "$18.95",
     image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
+      "https://farmhousesanfrancisco.imenutogo.com/s/i/farmhouse_wings.jpg",
   },
   {
-    title: "Tandoori chicken",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
+    title: "Tod Mun Kung",
+    description:
+      "Authentic Thai shrimp cake mixed with pork, garlic, cilantro, and mushroom soy sauce served with sweet plum sauce and cucumber",
+    price: "$17.95",
+    image: "https://farmhousesanfrancisco.imenutogo.com/s/i/s__14458896.jpg",
   },
   {
-    title: "Paneer Masala",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
+    title: "Crispy Calamari",
+    description:
+      "Curry battered Monterey squid in spicy pepper served with cilantro lime sauce.",
+    price: "$17.50",
     image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
+      "https://farmhousesanfrancisco.imenutogo.com/s/i/crispy_calamari.jpg",
   },
   {
-    title: "Shahi Paneer",
-    description: "With butter lettuce, tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
+    title: "Fresh Rolls",
+    description:
+      "Fresh rice paper roll, tofu, mixed green, bean sprouts, mint and vermicelli noodle. Chili peanut sauce.",
+    price: "$15.95",
+    image: "https://farmhousesanfrancisco.imenutogo.com/s/i/v.jpg",
   },
   {
-    title: "Malai Kofta",
-    description: "With butter lettuce, tomato and sauce bechamel",
+    title: "Samosa",
+    description:
+      "Red Norland potato, caramelized onion, carrot wrapped in pastry skin served with coconut curry sauce.",
     price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
+    image: "https://farmhousesanfrancisco.imenutogo.com/s/i/samosa.jpg",
   },
 ];
 
