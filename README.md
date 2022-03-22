@@ -30,6 +30,8 @@ Project is created with:
   </a>
 </p>
 
+<img alt = "UberApp" src = "https://github.com/SukhrajBirSingh/UberEatsClone_React-Native/blob/master/Apple%20iPhone%2011%20Pro%20Max%20Presentation-8.png?raw=true">
+
 ## 🚀 How to use
 
 - Install packages with `yarn` or `npm install`.
