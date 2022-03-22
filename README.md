@@ -1,7 +1,7 @@
 ## Uber Clone [Eats and Ride]
 
 ## General Info
-This project is a clone of Uber app. It has both uberEats and uberRide options.
+This project is a clone of Uber app. It has both UberEats and Uber options.
 
 ## Technologies and Libraries
 Project is created with:
