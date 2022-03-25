@@ -1,7 +1,7 @@
 ## Uber Clone [Eats and Ride]
 
 ## General Info
-This project is a clone of Uber app. It has both uberEats and uberRide options.
+This project is a clone of Uber app. It has both UberEats and Uber options.
 
 ## Technologies and Libraries
 Project is created with:
@@ -29,6 +29,8 @@ Project is created with:
     <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
   </a>
 </p>
+
+<img alt = "UberApp" src = "https://github.com/SukhrajBirSingh/UberEatsClone_React-Native/blob/master/Apple%20iPhone%2011%20Pro%20Max%20Presentation-8.png?raw=true">
 
 ## 🚀 How to use
 
