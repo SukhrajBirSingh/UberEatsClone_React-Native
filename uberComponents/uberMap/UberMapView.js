@@ -44,6 +44,9 @@ export default function UberMapView(props) {
           type: "SET_TRAVEL_INFO",
           payload: { info },
         });
+      })
+      .catch((error) => {
+        console.log("error fetching data..", error);
       });
   });
 

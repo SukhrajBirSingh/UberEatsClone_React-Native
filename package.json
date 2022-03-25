@@ -3,6 +3,7 @@
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
     "expo": "^44.0.0",
+    "expo-location": "~14.0.2",
     "firebase": "7.9.0",
     "lib": "^4.3.3",
     "lottie-react-native": "^5.0.1",
@@ -27,7 +28,8 @@
     "ts": "^0.2.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "jest": "^27.5.1"
   },
   "scripts": {
     "start": "expo start",

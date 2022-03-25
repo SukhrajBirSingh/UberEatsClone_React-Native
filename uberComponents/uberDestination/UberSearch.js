@@ -1,26 +1,50 @@
-import { View, Text, KeyboardAvoidingView, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import env from "../../env";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
+import * as Location from "expo-location";
 
 export default function UberSearch(props) {
-  const origin = useSelector((state) => state.rideReducer.origin);
-  const destination = useSelector((state) => state.rideReducer.destination);
+  const [location, setLocation] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  console.log("origin===", origin.origin);
-  console.log("destination====", destination.destination);
+  const [errorMsg, setErrorMsg] = useState(null);
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+    })();
+  }, []);
+
+  const locationHandler = () => {
+    (async () => {
+      let location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Low,
+      });
+      setLocation(location);
+      setIsLoading(false);
+    })();
+  };
 
   const dispatch = useDispatch();
-  //console.log(`origin=${origin.lat}`);
 
   const selectedOrigin = (origin) => {
     dispatch({
       type: "SET_ORIGIN",
       payload: { origin },
     });
-    //console.log(`origin=${origin.lat}`);
   };
 
   const selectedDestination = (destination) => {
@@ -28,22 +52,22 @@ export default function UberSearch(props) {
       type: "SET_DESTINATION",
       payload: { destination },
     });
-    // console.log(`destination=${destination.lat}`);
   };
+
+  useEffect(() => {
+    console.log("wegot", location);
+  }, [location]);
 
   return (
     <>
       <View style={{ marginTop: 15, flexDirection: "row" }}>
         <GooglePlacesAutocomplete
           query={{ key: env.googleApiKey }}
-          //currentLocation={true}
-          //currentLocationLabel="Current Location"
-          //predefinedPlaces={[homePlace]}
+          autoFocus={true}
           fetchDetails={true}
           onPress={(data, details = null) => {
             const Currentcity = details.geometry.location;
-            //console.log(data);
-            //console.log(details.geometry.location);
+
             selectedOrigin(Currentcity);
           }}
           placeholder="Current Location"
@@ -57,7 +81,6 @@ export default function UberSearch(props) {
 
             textInputContainer: {
               backgroundColor: "#eee",
-              //borderRadius: 50,
               flexDirection: "row",
               alignItems: "center",
               marginHorizontal: 10,
@@ -71,11 +94,24 @@ export default function UberSearch(props) {
                 borderLeftColor: "gray",
               }}
             >
-              <MaterialCommunityIcons
-                name="location-enter"
-                size={20}
-                color="gray"
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  locationHandler();
+                  setIsLoading(true);
+                }}
+              >
+                {isLoading ? (
+                  <View>
+                    <ActivityIndicator />
+                  </View>
+                ) : (
+                  <MaterialCommunityIcons
+                    name="location-enter"
+                    size={20}
+                    color={location ? "#4D96FF" : "gray"}
+                  />
+                )}
+              </TouchableOpacity>
             </View>
           )}
         />

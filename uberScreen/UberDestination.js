@@ -4,7 +4,6 @@ import Greeting from "../uberComponents/uberDestination/Greeting";
 import UberSearch from "../uberComponents/uberDestination/UberSearch";
 import RecentLocations from "../uberComponents/uberHome/RecentLocations";
 import KeyboardSpacer from "react-native-keyboard-spacer";
-import BottomButtons from "../uberComponents/uberDestination/BottomButtons";
 
 export default function UberDestination({ navigation }) {
   return (
