@@ -8,16 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 export default function UberMapView(props) {
   const origin = useSelector((state) => state.rideReducer.origin);
   const destination = useSelector((state) => state.rideReducer.destination);
-
-  console.log(origin.origin.lat);
+  console.log(origin);
   const directions = [
     {
-      latitude: origin.origin.lat,
-      longitude: origin.origin.lng,
+      latitude: origin.lat,
+      longitude: origin.lng,
     },
     {
-      latitude: destination.destination.lat,
-      longitude: destination.destination.lng,
+      latitude: destination.lat,
+      longitude: destination.lng,
     },
   ];
 
@@ -35,7 +34,7 @@ export default function UberMapView(props) {
 
   useEffect(() => {
     fetch(
-      `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&destinations=${destination.destination.lat}%2C${destination.destination.lng}&origins=${origin.origin.lat}%2C${origin.origin.lng}&key=${env.googleMatrixAPI}`
+      `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&destinations=${destination.lat}%2C${destination.lng}&origins=${origin.lat}%2C${origin.lng}&key=${env.googleMatrixAPI}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -72,8 +71,38 @@ export default function UberMapView(props) {
           showsScale={true}
           zoomEnabled={true}
         />
-        <Marker coordinate={directions[0]} identifier={"origin"} />
-        <Marker coordinate={directions[1]} identifier={"destination"} />
+        <Marker
+          coordinate={directions[0]}
+          identifier={"origin"}
+          pinColor="#4D96FF"
+        >
+          <View
+            style={{
+              backgroundColor: "black",
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                paddingHorizontal: 5,
+              }}
+            >
+              •
+            </Text>
+          </View>
+        </Marker>
+        <Marker coordinate={directions[1]} identifier={"destination"}>
+          <View
+            style={{
+              backgroundColor: "black",
+              borderRadius: 30,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "white", paddingHorizontal: 5 }}>•</Text>
+          </View>
+        </Marker>
       </MapView>
     </View>
   );

@@ -1,6 +1,6 @@
 let defaultState = {
-  origin: {},
-  destination: {},
+  origin: { lat: "", lng: "" },
+  destination: { lat: "", lng: "" },
   travelInfo: {},
 };
 
@@ -9,14 +9,20 @@ let rideReducer = (state = defaultState, action) => {
     case "SET_ORIGIN": {
       let newState = { ...state };
 
-      newState.origin = action.payload;
+      newState.origin = {
+        lat: action.payload.lat,
+        lng: action.payload.lng,
+      };
       return newState;
     }
 
     case "SET_DESTINATION": {
       let newState = { ...state };
 
-      newState.destination = action.payload;
+      newState.destination = {
+        lat: action.payload.lat,
+        lng: action.payload.lng,
+      };
       return newState;
     }
 

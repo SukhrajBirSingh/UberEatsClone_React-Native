@@ -10,14 +10,17 @@ import React, { useEffect, useState } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import env from "../../env";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 import { useDispatch, useSelector } from "react-redux";
 import * as Location from "expo-location";
 
 export default function UberSearch(props) {
   const [location, setLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  //const [errorMsg, setErrorMsg] = useState(null);
+  const dispatch = useDispatch();
 
-  const [errorMsg, setErrorMsg] = useState(null);
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -34,88 +37,99 @@ export default function UberSearch(props) {
         accuracy: Location.Accuracy.Low,
       });
       setLocation(location);
+      dispatch({
+        type: "SET_ORIGIN",
+        payload: {
+          lat: location.coords.latitude,
+          lng: location.coords.longitude,
+        },
+      });
       setIsLoading(false);
+      console.log("wegot", location.coords);
     })();
   };
-
-  const dispatch = useDispatch();
 
   const selectedOrigin = (origin) => {
     dispatch({
       type: "SET_ORIGIN",
-      payload: { origin },
+      payload: { lat: origin.lat, lng: origin.lng },
     });
   };
 
   const selectedDestination = (destination) => {
     dispatch({
       type: "SET_DESTINATION",
-      payload: { destination },
+      payload: { lat: destination.lat, lng: destination.lng },
     });
   };
 
-  useEffect(() => {
-    console.log("wegot", location);
-  }, [location]);
+  // useEffect(() => {
+  //   console.log("wegot", location);
+  // }, [location]);
 
   return (
     <>
-      <View style={{ marginTop: 15, flexDirection: "row" }}>
-        <GooglePlacesAutocomplete
-          query={{ key: env.googleApiKey }}
-          autoFocus={true}
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            const Currentcity = details.geometry.location;
+      {location ? (
+        <View style={{ marginTop: 15, marginLeft: 10, flexDirection: "row" }}>
+          <Ionicons name="location" size={18} color="#4D96FF" />
+          <Text style={{ color: "#4D96FF", fontSize: "15", marginLeft: 5 }}>
+            Current Location
+          </Text>
+        </View>
+      ) : (
+        <View style={{ marginTop: 15, flexDirection: "row" }}>
+          <GooglePlacesAutocomplete
+            query={{ key: env.googleApiKey }}
+            autoFocus={true}
+            fetchDetails={true}
+            onPress={(data, details = null) => {
+              const Currentcity = details.geometry.location;
 
-            selectedOrigin(Currentcity);
-          }}
-          placeholder="Current Location"
-          styles={{
-            textInput: {
-              backgroundColor: "#eee",
+              selectedOrigin(Currentcity);
+            }}
+            placeholder="Current Location (hit left icon)"
+            styles={{
+              textInput: {
+                backgroundColor: "#eee",
 
-              fontWeight: "500",
-              height: 30,
-            },
+                fontWeight: "500",
+                height: 30,
+              },
 
-            textInputContainer: {
-              backgroundColor: "#eee",
-              flexDirection: "row",
-              alignItems: "center",
-              marginHorizontal: 10,
-            },
-          }}
-          renderLeftButton={() => (
-            <View
-              style={{
-                borderRightWidth: 0.5,
-                paddingHorizontal: 10,
-                borderLeftColor: "gray",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  locationHandler();
-                  setIsLoading(true);
+              textInputContainer: {
+                backgroundColor: "#eee",
+                flexDirection: "row",
+                alignItems: "center",
+                marginHorizontal: 10,
+              },
+            }}
+            renderLeftButton={() => (
+              <View
+                style={{
+                  borderRightWidth: 0.5,
+                  paddingHorizontal: 10,
+                  borderLeftColor: "gray",
                 }}
               >
-                {isLoading ? (
-                  <View>
-                    <ActivityIndicator />
-                  </View>
-                ) : (
-                  <MaterialCommunityIcons
-                    name="location-enter"
-                    size={20}
-                    color={location ? "#4D96FF" : "gray"}
-                  />
-                )}
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-      </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    locationHandler();
+                    setIsLoading(true);
+                  }}
+                >
+                  {isLoading ? (
+                    <View>
+                      <ActivityIndicator />
+                    </View>
+                  ) : (
+                    <Ionicons name="location" size={20} color="gray" />
+                  )}
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        </View>
+      )}
       <View style={{ marginTop: 15, flexDirection: "row" }}>
         <GooglePlacesAutocomplete
           query={{ key: env.googleApiKey }}

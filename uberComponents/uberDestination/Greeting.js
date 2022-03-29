@@ -4,6 +4,10 @@ import { Divider } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function Greeting({ navigation }) {
+  var today = new Date();
+  var time = today.getHours();
+  console.log(time);
+
   return (
     <>
       <SafeAreaView
@@ -35,7 +39,7 @@ export default function Greeting({ navigation }) {
             marginLeft: 70,
           }}
         >
-          Good Morning!
+          {time <= 12 ? "Good Morning!" : "Good Evening!"}
         </Text>
       </SafeAreaView>
       <Divider width={1} />
