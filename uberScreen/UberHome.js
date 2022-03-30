@@ -8,7 +8,6 @@ export default function UberHome({ navigation }) {
   return (
     <View>
       <UberHeader />
-
       <UberCatrgories navigation={navigation} />
       <RecentLocations />
     </View>

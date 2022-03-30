@@ -6,7 +6,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 export default function Greeting({ navigation }) {
   var today = new Date();
   var time = today.getHours();
-  console.log(time);
 
   return (
     <>

@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UberCategories/> renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+      "justifyContent": "space-evenly",
+      "marginHorizontal": 20,
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#eee",
+          "justifyContent": "center",
+          "margin": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+            "marginBottom": 25,
+          }
+        }
+      >
+        <Image
+          resizeMode="contain"
+          source={
+            Object {
+              "testUri": "../../../assets/uberAssets/images/UberX.png",
+            }
+          }
+          style={
+            Object {
+              "height": 120,
+              "width": 150,
+            }
+          }
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "fontSize": 20,
+            "fontWeight": "600",
+          }
+        }
+      >
+        Get a ride
+      </Text>
+      <MockedMaterialCommunityIcons
+        name="arrow-right-circle"
+        size={40}
+        style={
+          Object {
+            "paddingTop": 20,
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#eee",
+          "justifyContent": "center",
+          "margin": 20,
+          "padding": 10,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+            "marginBottom": 25,
+          }
+        }
+      >
+        <Image
+          resizeMode="contain"
+          source={
+            Object {
+              "testUri": "../../../assets/uberAssets/images/uberEats.png",
+            }
+          }
+          style={
+            Object {
+              "height": 120,
+              "width": 150,
+            }
+          }
+        />
+      </View>
+      <Text
+        style={
+          Object {
+            "fontSize": 20,
+            "fontWeight": "600",
+          }
+        }
+      >
+        Order food
+      </Text>
+      <MockedMaterialCommunityIcons
+        name="arrow-right-circle"
+        size={40}
+        style={
+          Object {
+            "paddingTop": 20,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
