@@ -22,9 +22,9 @@ let cartReducer = (state = defaultState, action) => {
           ],
           restaurantName: action.payload.restaurantName,
         };
-        console.log("REMOVE_FROM_CART");
+        //console.log("REMOVE_FROM_CART");
       }
-      console.log(newState);
+      //  console.log(newState);
       return newState;
     }
 

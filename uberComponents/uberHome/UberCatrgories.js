@@ -30,7 +30,7 @@ export default function UberCatrgories({ navigation }) {
             if (item.id === 1) {
               navigation.navigate("UberDestination");
             } else {
-              navigation.navigate("Home");
+              navigation.navigate("UberEatsHome");
             }
           }}
           key={index}

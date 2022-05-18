@@ -21,6 +21,7 @@ export default function OrderCompleted() {
       },
     ],
   });
+
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
   );

@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 
 const items = [
@@ -49,32 +49,35 @@ export default function Categories() {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {/*loop start here */}
         {items.map((item, index) => (
-          <View
-            key={index}
-            style={{
-              alignItems: "center",
-              marginRight: 10,
-            }}
-          >
+          <TouchableOpacity key={index}>
             <View
               style={{
-                padding: 10,
-                backgroundColor: "#eee",
-                borderRadius: 10,
-                marginBottom: 5,
+                alignItems: "center",
+                marginRight: 10,
               }}
             >
-              <Image
-                source={item.Image}
+              <View
                 style={{
-                  width: 50,
-                  height: 40,
-                  resizeMode: "contain",
+                  padding: 10,
+                  backgroundColor: "#eee",
+                  borderRadius: 10,
+                  marginBottom: 5,
                 }}
-              />
+              >
+                <Image
+                  source={item.Image}
+                  style={{
+                    width: 50,
+                    height: 40,
+                    resizeMode: "contain",
+                  }}
+                />
+              </View>
+              <Text style={{ fontSize: 11, fontWeight: "500" }}>
+                {item.text}
+              </Text>
             </View>
-            <Text style={{ fontSize: 11, fontWeight: "500" }}>{item.text}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
 
         {/*loop ends here */}
