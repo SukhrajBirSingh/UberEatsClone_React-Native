@@ -1,54 +1,64 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
-import firebase from "../../firebase";
 import "firebase/firestore";
+import React, { useCallback, useEffect, useState } from "react";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import firebase from "../../firebase";
 
 export default function OrdersTab() {
-  const [orders, setOrders] = useState({
-    items: [
-      {
-        title: "Lasagna",
-        description: "With butter lettuce, tomato and sauce bechamel",
-        price: "$13.50",
-        image:
-          "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
-        restaurantName: "c",
-      },
-    ],
-  });
+  const [orders, setOrders] = useState([]);
 
+  // const Data = [];
+
+  const data = [];
   useEffect(() => {
+    fetch();
+
+    //return using calling anonyms function
+    //you can not call unsubscribe directly
+  }, []);
+
+  const fetch = useCallback(async () => {
     const db = firebase.firestore();
+
     const unsubscribe = db
       .collection("orders")
       .orderBy("createdAt", "desc")
-      .limit(1)
+      .limit(7)
       .onSnapshot((snapshot) => {
         snapshot.docs.map((doc) => {
-          setOrders(doc.data());
+          data.push(doc.data());
+          if (snapshot.docs.length === data.length) {
+            setOrders(data);
+          }
         });
       });
-
-    return () => unsubscribe(); //return using calling anonyms function
-    //you can not call unsubscribe directly
+    return () => unsubscribe();
   }, []);
-  console.log("##########");
-  console.log(orders);
 
   return (
-    <>
-      {orders.items.map((order, index) => (
+    <ScrollView>
+      {orders.map((item, index) => (
         <View key={index} style={styles.menuItemStyle}>
-          <ImageView image={order.image} />
-          <DescriptionView
-            restaurantName={order.restaurantName}
-            title={order.title}
-            description={order.description}
-            price={order.price}
-          />
+          <ImageView image={item.items[0].image} />
+          <View
+            style={{
+              width: 200,
+              // height: 100,
+            }}
+          >
+            <TitleView title={item.items[0].restaurantName} />
+            {item.items.map((data, index) => (
+              <View View key={index}>
+                <DescriptionView
+                  title={data.title}
+                  description={data.description}
+                  price={data.price}
+                />
+              </View>
+            ))}
+          </View>
         </View>
       ))}
-    </>
+    </ScrollView>
   );
 }
 
@@ -61,14 +71,34 @@ const ImageView = (props) => (
   </View>
 );
 
+const TitleView = (props) => (
+  <View>
+    <Text style={styles.titleStyle}>{props.title}</Text>
+  </View>
+);
+
 const DescriptionView = (props) => (
   <View>
-    <View style={{ width: 200, justifyContent: "space-evenly" }}>
-      <Text style={styles.titleStyle}>{props.restaurantName}</Text>
-      <Text style={{ color: "black", fontWeight: "600" }}>{props.title}</Text>
-      <Text style={{ color: "gray" }}>{props.description}</Text>
-      <Text>{props.price}</Text>
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        //backgroundColor: "pink",
+      }}
+    >
+      <Text style={{ fontWeight: "900", fontSize: 14 }}>•</Text>
+      <Text
+        style={{
+          color: "black",
+          fontWeight: "600",
+          paddingHorizontal: 2,
+          fontSize: 14,
+        }}
+      >
+        {props.title}
+      </Text>
     </View>
+    <Text style={{ paddingHorizontal: 7 }}>{props.price}</Text>
   </View>
 );
 
@@ -77,10 +107,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     margin: 20,
-    alignItems: "center",
+    // alignItems: "center",
+    // backgroundColor: "pink",
   },
   titleStyle: {
     fontSize: 19,
     fontWeight: "600",
+    marginBottom: 3,
   },
 });
