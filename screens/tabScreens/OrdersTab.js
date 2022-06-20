@@ -11,18 +11,15 @@ export default function OrdersTab() {
   const data = [];
   useEffect(() => {
     fetch();
-
-    //return using calling anonyms function
-    //you can not call unsubscribe directly
   }, []);
 
-  const fetch = useCallback(async () => {
+  const fetch = useCallback(() => {
     const db = firebase.firestore();
 
     const unsubscribe = db
       .collection("orders")
       .orderBy("createdAt", "desc")
-      .limit(7)
+      .limit(4)
       .onSnapshot((snapshot) => {
         snapshot.docs.map((doc) => {
           data.push(doc.data());
@@ -42,7 +39,6 @@ export default function OrdersTab() {
           <View
             style={{
               width: 200,
-              // height: 100,
             }}
           >
             <TitleView title={item.items[0].restaurantName} />
@@ -83,7 +79,6 @@ const DescriptionView = (props) => (
       style={{
         flexDirection: "row",
         alignItems: "center",
-        //backgroundColor: "pink",
       }}
     >
       <Text style={{ fontWeight: "900", fontSize: 14 }}>•</Text>
@@ -107,8 +102,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     margin: 20,
-    // alignItems: "center",
-    // backgroundColor: "pink",
   },
   titleStyle: {
     fontSize: 19,
