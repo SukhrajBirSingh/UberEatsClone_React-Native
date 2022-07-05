@@ -45,7 +45,7 @@ export default function UberSearch(props) {
         },
       });
       setIsLoading(false);
-      console.log("wegot", location.coords);
+      //console.log("wegot", location.coords);
     })();
   };
 
@@ -72,7 +72,7 @@ export default function UberSearch(props) {
       {location ? (
         <View style={{ marginTop: 15, marginLeft: 10, flexDirection: "row" }}>
           <Ionicons name="location" size={18} color="#4D96FF" />
-          <Text style={{ color: "#4D96FF", fontSize: "15", marginLeft: 5 }}>
+          <Text style={{ color: "#4D96FF", fontSize: 15, marginLeft: 5 }}>
             Current Location
           </Text>
         </View>

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function UberMapView(props) {
   const origin = useSelector((state) => state.rideReducer.origin);
   const destination = useSelector((state) => state.rideReducer.destination);
-  console.log(origin);
+  // console.log(origin);
   const directions = [
     {
       latitude: origin.lat,
